@@ -4,12 +4,19 @@
   font-size: 24px;
   font-weight: bold;
   line-height: 34px;
-  height: 34px;
+  height: 50px;
   margin-right: -1px;
   margin-top: -1px;
   padding: 0;
   text-align: center;
-  width: 88px;
+  width: 50px;
+  float: left;
+}
+.square1{
+  color: red;
+}
+.square2{
+  color: aquamarine;
 }
 .col {
   display: inline-block;
