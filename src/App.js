@@ -8,11 +8,11 @@ export default class App extends Component {
     squares: [],
     col: 15,
     row: 15,
-    player1Turn: true,
     history: [],
-    checkHistory: false,
+    checkHistory: true,
     historyRedo: [],
-    checkHistoryUndo: false
+    checkHistoryRedo: true,
+    player1Turn: true
   };
 
   handleSquareClick = square => {
@@ -85,6 +85,39 @@ export default class App extends Component {
     this.setState({ squares: squares });
   };
 
+  wincheck = () => {
+    const squares = this.state.squares;
+    for (let i = 2; i < 13; i++) {
+      for (let j = 2; j < 13; j++) {
+        if (
+          (squares[i][j].value === squares[i + 1][j].value &&
+            squares[i][j].value === squares[i + 2][j].value &&
+            squares[i][j].value === squares[i - 1][j].value &&
+            squares[i][j].value === squares[i - 2][j].value &&
+            squares[i][j].value !== "") ||
+          (squares[i][j].value === squares[i][j + 1].value &&
+            squares[i][j].value === squares[i][j + 2].value &&
+            squares[i][j].value === squares[i][j - 1].value &&
+            squares[i][j].value === squares[i][j - 2].value &&
+            squares[i][j].value !== "") ||
+          (squares[i][j].value === squares[i + 1][j + 1].value &&
+            squares[i][j].value === squares[i + 2][j + 2].value &&
+            squares[i][j].value === squares[i - 1][j - 1].value &&
+            squares[i][j].value === squares[i - 2][j - 2].value &&
+            squares[i][j].value !== "") ||
+          (squares[i][j].value === squares[i + 1][j - 1].value &&
+            squares[i][j].value === squares[i + 2][j - 2].value &&
+            squares[i][j].value === squares[i - 1][j + 1].value &&
+            squares[i][j].value === squares[i - 2][j + 2].value &&
+            squares[i][j].value !== "")
+        ) {
+          alert("Victory");
+          break;
+        }
+      }
+    }
+  };
+
   componentDidMount() {
     const squares = this.state.squares;
 
@@ -104,8 +137,25 @@ export default class App extends Component {
     this.setState({ squares: squares });
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.player1Turn !== prevState.player1Turn) {
+      this.wincheck();
+      if (this.state.history.length > 0) {
+        this.setState({ checkHistory: false });
+      }
+      if (this.state.history.length === 0) {
+        this.setState({ checkHistory: true });
+      }
+      if (this.state.historyRedo.length > 0) {
+        this.setState({ checkHistoryRedo: false });
+      }
+      if (this.state.historyRedo.length === 0) {
+        this.setState({ checkHistoryRedo: true });
+      }
+    }
+  }
+
   render() {
-    console.log(this.state.historyRedo);
     return (
       <div className="container">
         <LeftMenu turn={this.state.player1Turn}></LeftMenu>
@@ -116,7 +166,7 @@ export default class App extends Component {
         ></Board>
         <RightMenu
           checkHistory={this.state.checkHistory}
-          historyRedo={this.state.historyRedo}
+          checkHistoryRedo={this.state.checkHistoryRedo}
           handleRedo={this.handleRedo}
           handleUndo={this.handleUndo}
           onClick={this.handeleRestart}
