@@ -3,7 +3,7 @@ import React, { Component } from "react";
 export default class RightMenu extends Component {
   render() {
     return (
-      <div>
+      <div className="right-menu">
         <button className="btn" onClick={this.props.onClick}>
           Restart
         </button>

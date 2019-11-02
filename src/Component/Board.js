@@ -18,6 +18,6 @@ export default class Board extends Component {
         ))}
       </div>
     ));
-    return <div>{allBoard}</div>;
+    return <div className="board-container">{allBoard}</div>;
   }
 }

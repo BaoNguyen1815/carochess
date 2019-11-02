@@ -24,7 +24,8 @@ export default class App extends Component {
     this.setState({
       squares: squares,
       player1Turn: changeTurn,
-      history: history
+      history: history,
+      historyRedo: []
     });
   };
 
@@ -82,7 +83,14 @@ export default class App extends Component {
         squares[i].push(square);
       }
     }
-    this.setState({ squares: squares });
+    this.setState({
+      squares: squares,
+      history: [],
+      historyRedo: [],
+      checkHistory: true,
+      checkHistoryRedo: true,
+      player1Turn: true
+    });
   };
 
   wincheck = () => {
@@ -158,6 +166,7 @@ export default class App extends Component {
   render() {
     return (
       <div className="container">
+        <h3>CARO CHESS</h3>
         <LeftMenu turn={this.state.player1Turn}></LeftMenu>
         <Board
           turn={this.state.player1Turn}
