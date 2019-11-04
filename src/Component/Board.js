@@ -9,10 +9,8 @@ export default class Board extends Component {
           <div key={`row-${rIndex}-cell-${cIndex}`} className="col">
             <Square
               onClick={this.props.handleSquareClick}
-              squares={this.props.squares}
+              square={cell}
               turn={this.props.turn}
-              row={rIndex}
-              col={cIndex}
             ></Square>
           </div>
         ))}

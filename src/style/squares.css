@@ -52,3 +52,12 @@ h3{
   margin-top: 10%;
   margin-right: 20%;
 }
+
+@media only screen and (max-width: 1200px){
+  .left-menu{
+    display: none;
+  }
+  .right-menu{
+    margin-right: 0%;
+  };
+}

@@ -4,93 +4,79 @@ import LeftMenu from "./Component/LeftMenu";
 import RightMenu from "./Component/RightMenu";
 
 export default class App extends Component {
-  state = {
-    squares: [],
-    col: 15,
-    row: 15,
-    history: [],
-    checkHistory: true,
-    historyRedo: [],
-    checkHistoryRedo: true,
-    player1Turn: true
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      squares: this.getInitialSquares(),
+      player1Turn: true
+    };
+
+    this.history = [JSON.parse(JSON.stringify(this.state))];
+    this.currentStateIndex = 0;
+    this.row = 15;
+    this.col = 15;
+  }
 
   handleSquareClick = square => {
     const changeTurn = !this.state.player1Turn;
     const squares = this.state.squares;
-    const history = this.state.history;
-    squares[square.row][square.col] = square;
-    history.push(square);
-    this.setState({
-      squares: squares,
-      player1Turn: changeTurn,
-      history: history,
-      historyRedo: []
-    });
+    squares[square.row][square.col].value = square.value;
+
+    this.setState(
+      {
+        squares: squares,
+        player1Turn: changeTurn
+      },
+      () => {
+        if (this.currentStateIndex !== this.history.length - 1) {
+          debugger;
+          console.log("currentState:", this.currentStateIndex);
+          console.log("historyLength:", this.history.length);
+          this.history = this.history.slice(0, this.currentStateIndex + 1);
+          console.log(this.history);
+        }
+        var nextState = JSON.parse(JSON.stringify(this.state));
+
+        this.history.push(nextState);
+        this.currentStateIndex = this.history.length - 1;
+        debugger;
+      }
+    );
   };
 
   handleUndo = square => {
-    const changeTurn = !this.state.player1Turn;
-    const squares = this.state.squares;
-    const lastMove = this.state.history.pop();
-    this.state.historyRedo.push(lastMove);
-    squares[lastMove.row][lastMove.col] = {
-      value: "",
-      row: this.row,
-      col: this.col,
-      disable: false,
-      activeClass: "square"
-    };
+    if (this.history.length === 0 || this.currentStateIndex === 0) {
+      return;
+    }
 
-    this.setState({
-      squares: squares,
-      player1Turn: changeTurn
-    });
+    this.currentStateIndex = this.currentStateIndex - 1;
+    console.log("currentState:", this.currentStateIndex);
+    console.log("historyLength:", this.history.length);
+    const nextState = this.history[this.currentStateIndex];
+    debugger;
+    this.setState(nextState);
   };
 
   handleRedo = square => {
-    const changeTurn = !this.state.player1Turn;
-    const squares = this.state.squares;
-    const lastMove = this.state.historyRedo.pop();
-    this.state.history.push(lastMove);
-    squares[lastMove.row][lastMove.col] = {
-      value: lastMove.value,
-      row: this.row,
-      col: this.col,
-      disable: true,
-      activeClass: lastMove.activeClass
-    };
-
-    this.setState({
-      squares: squares,
-      player1Turn: changeTurn
-    });
+    if (this.currentStateIndex === this.history.length - 1) {
+      return;
+    }
+    this.currentStateIndex = this.currentStateIndex + 1;
+    const nextState = this.history[this.currentStateIndex];
+    this.setState(nextState);
   };
 
   handeleRestart = () => {
-    const squares = [];
-
-    for (let i = 0; i < 15; i++) {
-      squares.push([]);
-      for (let j = 0; j < 15; j++) {
-        const square = {
-          value: "",
-          row: j,
-          col: i,
-          disable: false,
-          activeClass: "square"
-        };
-        squares[i].push(square);
+    this.setState(
+      {
+        squares: this.getInitialSquares()
+      },
+      () => {
+        this.history = [];
+        this.history = [JSON.parse(JSON.stringify(this.state))];
       }
-    }
-    this.setState({
-      squares: squares,
-      history: [],
-      historyRedo: [],
-      checkHistory: true,
-      checkHistoryRedo: true,
-      player1Turn: true
-    });
+    );
   };
 
   wincheck = () => {
@@ -126,41 +112,21 @@ export default class App extends Component {
     }
   };
 
-  componentDidMount() {
-    const squares = this.state.squares;
+  getInitialSquares() {
+    const squares = [];
 
     for (let i = 0; i < 15; i++) {
       squares.push([]);
       for (let j = 0; j < 15; j++) {
         const square = {
-          value: "",
-          row: j,
-          col: i,
-          disable: false,
-          activeClass: "square"
+          value: null,
+          row: i,
+          col: j
         };
         squares[i].push(square);
       }
     }
-    this.setState({ squares: squares });
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.player1Turn !== prevState.player1Turn) {
-      this.wincheck();
-      if (this.state.history.length > 0) {
-        this.setState({ checkHistory: false });
-      }
-      if (this.state.history.length === 0) {
-        this.setState({ checkHistory: true });
-      }
-      if (this.state.historyRedo.length > 0) {
-        this.setState({ checkHistoryRedo: false });
-      }
-      if (this.state.historyRedo.length === 0) {
-        this.setState({ checkHistoryRedo: true });
-      }
-    }
+    return squares;
   }
 
   render() {
