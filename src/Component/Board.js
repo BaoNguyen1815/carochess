@@ -8,7 +8,7 @@ export default class Board extends Component {
         {row.map((cell, cIndex) => (
           <div key={`row-${rIndex}-cell-${cIndex}`} className="col">
             <Square
-            disable = {this.props.disable}
+              disable={this.props.disable}
               onClick={this.props.handleSquareClick}
               square={cell}
               turn={this.props.turn}

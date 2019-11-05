@@ -1,4 +1,4 @@
-.container{
+.container {
   text-align: center;
   background-color: burlywood;
   height: 1200px;
@@ -18,22 +18,22 @@
   width: 50px;
   float: left;
 }
-.square1{
+.square1 {
   color: red;
 }
-.square2{
+.square2 {
   color: aquamarine;
 }
 .col {
   display: inline-block;
 }
 
-button:disabled.btn{
-  background:grey !important;
+button:disabled.btn {
+  background: grey !important;
   color: #60a3bc;
 }
 
-.btn{
+.btn {
   width: 120px;
   height: 40px;
   /* border-color: aquamarine; */
@@ -48,54 +48,51 @@ button:disabled.btn{
   display: inline-block;
   border: none;
   transition: all 0.4s ease 0s;
-
-
 }
-.left-menu{
+.left-menu {
   width: 320px;
   display: inline-block;
   margin-top: 12%;
-  margin-left: 10%; ;
+  margin-left: 10%;
 
   float: left;
-
 }
 
-h1{
+h1 {
   text-align: center;
 }
 
-.board-container{
+.board-container {
   display: inline-block;
   text-align: center;
   margin-top: 4%;
   margin-left: 5%;
   float: left;
 }
-.right-menu{
+.right-menu {
   display: inline-block;
   float: left;
   margin-top: 10%;
-  margin-left: 5%;;
+  margin-left: 5%;
 
   /* margin-right: 20%; */
 }
-.winningSquare{
+.winningSquare {
   color: yellow;
   background: lightpink;
 }
 
-@media only screen and (max-width: 1200px){
-  .left-menu{
+@media only screen and (max-width: 1200px) {
+  .left-menu {
     display: none;
   }
-  .right-menu{
+  .right-menu {
     margin-right: 0%;
-  };
+  }
 }
-h2{
+h2 {
   color: red;
   position: fixed;
   padding-left: 45%;
-  padding-top: 0% ;
+  padding-top: 0%;
 }
