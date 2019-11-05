@@ -1,3 +1,9 @@
+.container{
+  text-align: center;
+  background-color: burlywood;
+  height: 1200px;
+}
+
 .square {
   background: #fff;
   border: 1px solid #999;
@@ -22,35 +28,61 @@
   display: inline-block;
 }
 
+button:disabled.btn{
+  background:grey !important;
+  color: #60a3bc;
+}
+
 .btn{
-  width: 80px;
+  width: 120px;
   height: 40px;
-  border-color: aquamarine;
+  /* border-color: aquamarine; */
   margin: 20% 20%;
+  font-weight: bold;
+  color: #fff !important;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: #60a3bc;
+  /* padding: 20px; */
+  border-radius: 50px;
+  display: inline-block;
+  border: none;
+  transition: all 0.4s ease 0s;
+
 
 }
 .left-menu{
+  width: 320px;
   display: inline-block;
-  margin-top: 14%;
-  margin-left: 20%; ;
+  margin-top: 12%;
+  margin-left: 10%; ;
+
   float: left;
 
 }
 
-h3{
+h1{
   text-align: center;
 }
 
 .board-container{
   display: inline-block;
   text-align: center;
-  margin-top: 2%;
+  margin-top: 4%;
+  margin-left: 5%;
+  float: left;
 }
 .right-menu{
   display: inline-block;
-  float: right;
+  float: left;
   margin-top: 10%;
-  margin-right: 20%;
+  margin-left: 5%;;
+
+  /* margin-right: 20%; */
+}
+.winningSquare{
+  color: yellow;
+  background: lightpink;
 }
 
 @media only screen and (max-width: 1200px){
@@ -60,4 +92,10 @@ h3{
   .right-menu{
     margin-right: 0%;
   };
+}
+h2{
+  color: red;
+  position: fixed;
+  padding-left: 45%;
+  padding-top: 0% ;
 }

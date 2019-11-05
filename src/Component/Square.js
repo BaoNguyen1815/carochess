@@ -22,13 +22,16 @@ export default class Square extends Component {
     } else if (value === "O") {
       className = "square square2";
     }
-
+    let disabled = false
+    if(this.props.disable){
+      disabled = true;
+    }
     return (
       <div>
         <button
           onClick={this._handleClick}
-          className={className}
-          disabled={!!value}
+          className= {`${className} ${square.className}`}
+          disabled={(!!value||disabled)}
         >
           {value}
         </button>
